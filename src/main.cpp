@@ -2,6 +2,7 @@
 #include <iostream>
 #include <array>
 #include <boost/program_options.hpp>
+#include <limits>
 
 #include "function.hpp"
 #include "func-1.hpp"
@@ -41,11 +42,11 @@ std::unique_ptr< po::variables_map > initOptions(int argc, char *argv[], std::ve
     opts->at(1).add_options()
             ("help,h", "produce help message")
             ("funcs,f", "produce functions list")
-            ("func,F", po::value<nonnegative>(), "number of function");
-    opts->at(2).add_options()
-            ("type,t", po::value<char>(), "type of rectangle method:\nl - for left\nt - for middle\nr - for right")
+            ("func,F", po::value<nonnegative>(), "number of function")
             ("accuracy,a", po::value<nonnegative>(), "accuracy of calculating integral, default: 6")
             ("no-color", "disabling color for current execution");
+    opts->at(2).add_options()
+            ("type,t", po::value<char>(), "type of rectangle method:\nl - for left\nt - for middle\nr - for right");
 
     auto new_opts = new po::options_description("\033[1;36mOptions:");
     new_opts->add(opts->at(0)).add(opts->at(1)).add(opts->at(2));
@@ -115,8 +116,7 @@ int main(int argc, char *argv[]) {
         std::cout << opts[0] << opts[1] << opts[2];
         return 1;
     }
-    if (argc == 2 && (vm->count("no-color") || vm->count("help")) ||
-        argc == 3 && (vm->count("no-color") || vm->count("help"))) {
+    if ((argc == 2 || argc == 3) && (vm->count("no-color") || vm->count("help"))) {
         std::cout << opts[0] << opts[1] << opts[2];
         return 0;
     }

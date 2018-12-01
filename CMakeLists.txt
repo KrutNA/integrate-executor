@@ -4,6 +4,7 @@ project(integral_executor)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_CXX_FLAGS -lboost_program_options)
+#set(CMAKE_CXX_FLAGS_RELEASE -O3)
 
 set(EXECUTABLE_NAME integrates)
 set(EXECUTABLE_OUTPUT_PATH ./bin)

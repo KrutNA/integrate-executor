@@ -22,19 +22,19 @@ double integral::execute(std::unique_ptr<function>&& func, double topValue, doub
 
     std::unique_ptr<method> selectedMethod = nullptr;
 
-    if (type == 'r') {
-        if (rectType == 'l')
+    if (std::tolower(type) == 'r') {
+        if (std::tolower(rectType) == 'l')
             selectedMethod = std::make_unique<left_rectangles_method>();
-        else if (rectType == 'm')
+        else if (std::tolower(rectType) == 'm')
             selectedMethod = std::make_unique<middle_rectangles_method>();
-        else if (rectType == 'r')
+        else if (std::tolower(rectType) == 'r')
             selectedMethod = std::make_unique<right_rectangles_method>();
         else {
             return NAN;
         }
-    } else if (type == 't') {
+    } else if (std::tolower(type) == 't') {
         selectedMethod = std::make_unique<trapezes_method>();
-    } else if (type == 's') {
+    } else if (std::tolower(type) == 's') {
         selectedMethod = std::make_unique<simpsons_method>();
     } else {
         return NAN;
